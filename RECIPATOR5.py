@@ -56,7 +56,7 @@ def ingredients():
     for i in range(len(entry)):     #For every block of ('ingredient: amount'),
         entries[i] = entry[i]       # create a numbered key for each entry in the dictionary
     uny = None              # unit variable
-    numy = None                         
+    numy = None
     for r in range(len(entries)):       # for every entry in the dictionary
         ingy = entries[r].split(' ')    # split each entry into a list of words
         for i in ingy:          # for every word in the list
@@ -70,7 +70,7 @@ def ingredients():
         ingy.remove(numy)           # remove the number from the list
         ingy.remove(uny)            # remove the unit from the list
         entries[' '.join(ingy)] = numy, uny  # create a new key with the ingredient name and assign it a tuple of (number, unit)
-        del entries[r]         # delete the old numbered key    
+        del entries[r]         # delete the old numbered key
 
 
     for i in entries:
@@ -79,32 +79,22 @@ def ingredients():
     print(entries)
     print(convEntries)
 
-    # pantryQ = input("Would you like to add to your pantry?")
-    # if 'y' in pantryQ.lower():
-    #     print(f"Here's your current pantry: ")
-    #     with open('pantry.json', 'r') as f:
-    #         pantry = json.load(f)
-    #         print(pantry)
-    #     ingredient = input("What ingredient would you like to add to your pantry? ")
-    #     amount = input("How much do you have? (number) ")
-    #     units = input("What unit is that in or do you have it in pieces? ")
-    #     for i in pantry:
-    #         if i == ingredient:
-    #             pantry[i] = pantry((i)[1]) + amount, units
-    #         else:
-    #             pantry.add(i)
-    #     with open('pantry.json', 'a') as f:
-    #        f.write(pantry)
-    # question = input("Would you like to save your recipe? Yes or No: ")
-    # if 'y' in question.lower():
-    #     nameIs = input("What is the name of this recipe? ")
-    #     unitIs = input("Would you like to save it converted or unconverted? C/U: ")
-    #     with open('cookbook.py', 'a') as f:
-    #         if unitIs.lower() == 'u':
-    #             unitIs = entries
-    #         else:
-    #             unitIs = convEntries
-    #         f.write(f"{nameIs} = {unitIs}\n")
-    #     print("Recipe saved to cookbook.")
-
-ingredients()
+def pantry():
+    with open('pantry.json', 'r') as f:
+        pantry = json.load(f)
+        print(pantry)
+    
+    demande = input("Would you like to add ingredients to your pantry? Y/N: ")
+    if 'y' in demande.lower():
+        entry = input("Enter your ingredients, separated by commas: ")
+        sepy = entry.split(', ')
+        # savedIngredients = {}
+        y = json.dumps(sepy)
+        with open('pantry.json', 'w') as f:
+            f.write(y)
+        print(y)
+question = input("Would you like to convert a recipe or view your pantry? 1 for recipe, 2 for pantry: ")
+if question == '1':
+    ingredients()
+else:
+    pantry()
